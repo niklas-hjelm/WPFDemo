@@ -16,63 +16,21 @@ using System.Windows.Shapes;
 namespace WPFDemo
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Calculator.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Calculator : Window
     {
-        public MainWindow()
+        public Calculator()
         {
             InitializeComponent();
         }
 
-        private void One_Click(object sender, RoutedEventArgs e)
+        private void Number_Click(object sender, RoutedEventArgs e)
         {
-            Display.Text += "1";
-        }
-
-        private void Two_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "2";
-        }
-
-        private void Three_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "3";
-        }
-
-        private void Four_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "4";
-        }
-
-        private void Five_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "5";
-        }
-
-        private void Six_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "6";
-        }
-
-        private void Seven_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "7";
-        }
-
-        private void Eight_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "8";
-        }
-
-        private void Nine_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "9";
-        }
-
-        private void Zero_Click(object sender, RoutedEventArgs e)
-        {
-            Display.Text += "0";
+            if (e.Source is Button button)
+            {
+                Display.Text += button.Content;
+            }
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
@@ -103,6 +61,32 @@ namespace WPFDemo
                     Display.Text += "-";
                 }
             }
+        }
+
+        private void Calc_Click(object sender, RoutedEventArgs e)
+        {
+            var separators = new []{ '+', '-' };
+            var numbers = Display.Text.Split(separators);
+
+            var result = 0;
+
+            foreach (var number in numbers)
+            {
+                var num = int.Parse(number);
+
+                if (Display.Text.Contains('+'))
+                {
+                    result += num;
+                }
+                else if (Display.Text.Contains('-'))
+                {
+                    result -= num;
+                }
+            }
+
+            var output = "=" + result;
+
+            Display.Text += output;
         }
     }
 }
